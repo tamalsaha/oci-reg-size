@@ -265,7 +265,10 @@ func collect(ref string, dm map[string]int) error {
 	}
 
 	for _, manifest := range m.Manifests {
-		collect(ref+manifest.Digest, dm)
+		err = collect(ref+manifest.Digest, dm)
+		if err != nil {
+			return err
+		}
 	}
 
 	dm[m.Config.Digest] = m.Config.Size
