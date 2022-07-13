@@ -48,6 +48,8 @@ func main() {
 	flag.StringVar(&dir, "dir", dir, "Dir name")
 	flag.Parse()
 
+	fmt.Printf(dir)
+
 	dm := map[string]int{}
 
 	err := parser.ProcessPath(dir, func(ri parser.ResourceInfo) error {
