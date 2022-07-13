@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/google/go-containerregistry/pkg/crane"
 	"k8s.io/apimachinery/pkg/runtime"
 	"kmodules.xyz/client-go/tools/parser"
@@ -237,6 +238,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	sz := 0
+	for _, v := range dm {
+		sz += v
+	}
+	fmt.Printf("%d\n", sz)
 }
 
 func collect(ref string, dm map[string]int) error {
