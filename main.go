@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-
 	"github.com/google/go-containerregistry/pkg/crane"
 	"k8s.io/apimachinery/pkg/runtime"
 	"kmodules.xyz/client-go/tools/parser"
@@ -41,6 +40,15 @@ type ImageLayer struct {
 	MediaType string `json:"mediaType"`
 	Size      int    `json:"size"`
 	Digest    string `json:"digest"`
+}
+
+func main___() {
+	ref := "busybox"
+	data, err := crane.Manifest(ref)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(data))
 }
 
 func main() {
@@ -254,9 +262,9 @@ func main() {
 }
 
 func collect(ref string, dm map[string]int) error {
-	if ref == "" {
-		ref = "latest"
-	}
+	//if strings.ContainsRune(ref, ':') {
+	//	ref += ":latest"
+	//}
 
 	fmt.Printf("%s\n", ref)
 
@@ -272,7 +280,7 @@ func collect(ref string, dm map[string]int) error {
 	}
 
 	for _, manifest := range m.Manifests {
-		err = collect(ref+manifest.Digest, dm)
+		err = collect(ref+"@"+manifest.Digest, dm)
 		if err != nil {
 			return err
 		}
