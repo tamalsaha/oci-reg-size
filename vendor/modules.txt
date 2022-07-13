@@ -497,7 +497,7 @@ k8s.io/utils/internal/third_party/forked/golang/net
 k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/strings/slices
-# kmodules.xyz/client-go v0.24.5
+# kmodules.xyz/client-go v0.24.6-0.20220713151932-439393ccc67a
 ## explicit; go 1.18
 kmodules.xyz/client-go
 kmodules.xyz/client-go/api/v1

@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/google/go-containerregistry v0.10.0
 	k8s.io/apimachinery v0.24.1
-	kmodules.xyz/client-go v0.24.5
+	kmodules.xyz/client-go v0.24.6-0.20220713151932-439393ccc67a
 	kubedb.dev/apimachinery v0.27.1-0.20220706195311-b920568d663a
 )
 

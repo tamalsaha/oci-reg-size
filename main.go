@@ -45,6 +45,7 @@ type ImageLayer struct {
 
 func main() {
 	dir := "/Users/tamal/go/src/kubedb.dev/installer/catalog/raw"
+	dir = "./catalog/raw"
 	flag.StringVar(&dir, "dir", dir, "Dir name")
 	flag.Parse()
 

@@ -24,5 +24,6 @@ jobs:
 
     - name: Build
       run: |
+        env
         git clone https://github.com/kubedb/installer.git
         go run -v ./... -dir=./catalog/raw
