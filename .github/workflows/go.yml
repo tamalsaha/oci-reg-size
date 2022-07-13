@@ -23,4 +23,6 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go run -v ./...
+      run: |
+        git clone https://github.com/kubedb/installer.git
+        go run -v ./...

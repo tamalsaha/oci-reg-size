@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 
 	"github.com/google/go-containerregistry/pkg/crane"
@@ -44,6 +45,8 @@ type ImageLayer struct {
 
 func main() {
 	dir := "/Users/tamal/go/src/kubedb.dev/installer/catalog/raw"
+	flag.StringVar(&dir, "dir", dir, "Dir name")
+	flag.Parse()
 
 	dm := map[string]int{}
 
