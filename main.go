@@ -254,6 +254,10 @@ func main() {
 }
 
 func collect(ref string, dm map[string]int) error {
+	if ref == "" {
+		ref = "latest"
+	}
+
 	fmt.Printf("%s\n", ref)
 
 	data, err := crane.Manifest(ref)
