@@ -247,6 +247,8 @@ func main() {
 }
 
 func collect(ref string, dm map[string]int) error {
+	fmt.Printf("%s\n", ref)
+
 	data, err := crane.Manifest(ref)
 	if err != nil {
 		return err
@@ -259,7 +261,7 @@ func collect(ref string, dm map[string]int) error {
 	}
 
 	for _, manifest := range m.Manifests {
-		dm[manifest.Digest] = manifest.Size
+		collect(ref+manifest.Digest, dm)
 	}
 
 	dm[m.Config.Digest] = m.Config.Size
