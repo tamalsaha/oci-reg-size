@@ -2,12 +2,15 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"github.com/google/go-containerregistry/pkg/crane"
+	"github.com/google/go-containerregistry/pkg/v1/remote/transport"
 	"k8s.io/apimachinery/pkg/runtime"
 	"kmodules.xyz/client-go/tools/parser"
 	api "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
+	"net/http"
 )
 
 type ImageManifest struct {
@@ -43,14 +46,27 @@ type ImageLayer struct {
 }
 
 func main__() {
-	//ref := "busybox"
-	//data, err := crane.Manifest(ref)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Println(string(data))
+	IsNotFound(nil)
+	ref := "kubedb/elasticsearch:6.3"
+	data, err := crane.Manifest(ref)
+	if err != nil {
+		if e2, ok := err.(*transport.Error); ok && e2.StatusCode == http.StatusNotFound {
+
+		}
+		if errors.Is(err, (*transport.Error)(nil)) {
+			panic(err)
+		}
+	}
+	fmt.Println(string(data))
 
 	collect("kubedb/operator:0.8.0", map[string]int{})
+}
+
+func IsNotFound(err error) bool {
+	if e2, ok := err.(*transport.Error); ok {
+		return e2.StatusCode == http.StatusNotFound
+	}
+	return false
 }
 
 func main() {
@@ -267,16 +283,17 @@ func collect(ref string, dm map[string]int) error {
 	if ref == "" {
 		return nil
 	}
-	//if strings.ContainsRune(ref, ':') {
-	//	ref += ":latest"
-	//}
-
-	fmt.Printf("%s\n", ref)
 
 	data, err := crane.Manifest(ref)
 	if err != nil {
+		if IsNotFound(err) {
+			fmt.Printf("NOT_FOUND %s\n", ref)
+			return nil
+		}
 		return err
 	}
+
+	fmt.Printf("%s\n", ref)
 
 	var m ImageManifest
 	err = json.Unmarshal(data, &m)
