@@ -42,13 +42,15 @@ type ImageLayer struct {
 	Digest    string `json:"digest"`
 }
 
-func main___() {
-	ref := "busybox"
-	data, err := crane.Manifest(ref)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(data))
+func main__() {
+	//ref := "busybox"
+	//data, err := crane.Manifest(ref)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//fmt.Println(string(data))
+
+	collect("kubedb/operator:0.8.0", map[string]int{})
 }
 
 func main() {
@@ -262,6 +264,9 @@ func main() {
 }
 
 func collect(ref string, dm map[string]int) error {
+	if ref == "" {
+		return nil
+	}
 	//if strings.ContainsRune(ref, ':') {
 	//	ref += ":latest"
 	//}
