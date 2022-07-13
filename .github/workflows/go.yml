@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: |
         git clone https://github.com/kubedb/installer.git
-        go run -v ./...
+        go run -v ./... -dir=./catalog/raw
